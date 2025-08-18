@@ -8,6 +8,36 @@ order: 4
 .page-title {
   display: none;
 }
+
+/* Witch Hunter Black & White Theme */
+.card-dark {
+  background: #111;
+  color: #e5e5e5;
+  padding: 1.75rem;
+  border-radius: 0;
+  border: 2px solid #f5f5f5;
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.08), 0 0 15px rgba(0,0,0,0.8);
+  font-family: "Garamond", "Georgia", serif;
+}
+
+.card-dark h3 {
+  font-family: "UnifrakturCook", "Old English Text MT", serif;
+  border-bottom: 2px solid #f5f5f5;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #f5f5f5;
+}
+
+.card-dark code {
+  background: #000;
+  border: 1px solid #444;
+  padding: 2px 5px;
+  font-size: 0.9em;
+  color: #f5f5f5;
+  font-family: "Courier New", monospace;
+}
 </style>
 
 # **Who Dafuq is Oceanwarranty?**
@@ -18,20 +48,20 @@ order: 4
   <!-- Text -->
   <div style="flex: 1 1 300px; min-width: 250px; display: flex; flex-direction: column; justify-content: center;">
     <div style="height: 100%;">
-      <p>hey.<br>
-      i'm <strong>oceanwarranty</strong>, 22. technically a third-year <strong>computer science student</strong>, but most of my time goes into breaking things that were never mine to begin with. halfway through the degree, fully absorbed by cybersecurity. i don’t study, i debug at 3AM, throw scripts at problems, and pray the kernel holds.</p>
+      <p><em>In the chronicles of the Hunt, a name returns like an echo through iron and smoke.</em><br>
+      I am <strong>Oceanwarranty</strong>, age 22. A third-year <strong>student of computation</strong> by title, but my nights are spent pursuing heresies in code, breaking wards that were never mine to begin with. My crucible is the terminal, my scripture: manuals and write-ups, my blade: exploits cast into flawed machines.</p>
 
-      <p>i’m not a genius. i just don’t stop. i read writeups like manuals for survival. i brute-force logic, not passwords. i stare at disassembly until something makes sense or i lose track of time. i throw payloads into broken apps and hope something gives. every flag is enough to keep going.</p>
+      <p>I do not claim genius — only persistence. I stalk disassembly until its secrets speak, hurl payloads into brittle walls, and claim their collapse as proof no system is sacred. Each captured flag is a mark burned into the ledger of the Hunt.</p>
 
-      <p>i still break my VM. i still forget arguments in <code>gdb</code>. i still waste hours on dumb typos. but every challenge is a puzzle worth solving. every exploit is proof that it wasn’t bulletproof. every sleepless night is a bet on learning something real.</p>
+      <p>Yet I falter. My familiars (VMs) fall apart. I forget invocations in <code>gdb</code>. I waste hours on a single misplaced rune. But each failure is another trial by fire, each sleepless night another rite.</p>
 
-      <p>i’m still figuring it out.<br></p>
+      <p><em>The Hunt does not end.</em></p>
     </div>
   </div>
 
   <!-- Image -->
-  <div style="flex: 0 0 150px; display: flex; align-items: center;">
-    <img src="{{ '/assets/img/avatar/beni full clean.png' | relative_url }}" alt="oceanwarranty pic" style="width: 150px; border-radius: 10px; object-fit: cover; height: 100%;">
+  <div style="flex: 0 0 250px; display: flex; align-items: center;">
+    <img src="{{ '/assets/img/avatar/Death.jpg' | relative_url }}" alt="oceanwarranty sigil" style="width: 250px; border: 2px solid #f5f5f5; border-radius: 5%; object-fit: cover; height: 100%;">
   </div>
 
 </div>
@@ -40,42 +70,42 @@ order: 4
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; align-items: stretch; margin-top: 1rem;">
 
   <!-- Card -->
-  <div style="background: linear-gradient(145deg, #1a1a1a, #111); color: #e5e7eb; padding: 1.75rem; border-radius: 14px; border: 1px solid #2e2e2e; box-shadow: 0 10px 20px rgba(0,0,0,0.35);">
-    <h3 style="margin: 0 0 0.75rem; font-size: 1.35rem; border-bottom: 2px solid #38bdf8; padding-bottom: 0.4rem;">Background</h3>
+  <div class="card-dark">
+    <h3>Background</h3>
     <ul style="list-style: none; padding-left: 0; margin: 0;">
-      <li style="margin-bottom: 0.5rem;"><code>Computer Science undergraduate (Year 3)</code></li>
-      <li style="margin-bottom: 0.5rem;"><code>Age: 22</code></li>
+      <li><code>Computer Science undergraduate (Year 3)</code></li>
+      <li><code>Age: 22</code></li>
       <li><code>Location: No Where</code></li>
     </ul>
   </div>
 
   <!-- Card -->
-  <div style="background: linear-gradient(145deg, #1a1a1a, #111); color: #e5e7eb; padding: 1.75rem; border-radius: 14px; border: 1px solid #2e2e2e; box-shadow: 0 10px 20px rgba(0,0,0,0.35);">
-    <h3 style="margin: 0 0 0.75rem; font-size: 1.35rem; border-bottom: 2px solid #22c55e; padding-bottom: 0.4rem;">Certifications</h3>
+  <div class="card-dark">
+    <h3>Certifications</h3>
     <ul style="list-style: none; padding-left: 0; margin: 0;">
-      <li style="margin-bottom: 0.5rem;"><code>CCNA: Enterprise Networking, Security & Automation</code></li>
-      <li style="margin-bottom: 0.5rem;"><code>CCNA: Switching, Routing & Wireless Essentials</code></li>
+      <li><code>CCNA: Enterprise Networking, Security & Automation</code></li>
+      <li><code>CCNA: Switching, Routing & Wireless Essentials</code></li>
       <li><code>CCNA: Introduction to Networks</code></li>
     </ul>
   </div>
 
   <!-- Card -->
-  <div style="background: linear-gradient(145deg, #1a1a1a, #111); color: #e5e7eb; padding: 1.75rem; border-radius: 14px; border: 1px solid #2e2e2e; box-shadow: 0 10px 20px rgba(0,0,0,0.35);">
-    <h3 style="margin: 0 0 0.75rem; font-size: 1.35rem; border-bottom: 2px solid #f97316; padding-bottom: 0.4rem;">Interests</h3>
+  <div class="card-dark">
+    <h3>Interests</h3>
     <ul style="list-style: none; padding-left: 0; margin: 0;">
-      <li style="margin-bottom: 0.5rem;"><code>Cybersecurity and ethical hacking</code></li>
-      <li style="margin-bottom: 0.5rem;"><code>Networking</code></li>
-      <li style="margin-bottom: 0.5rem;"><code>Linux and open-source tools</code></li>
+      <li><code>Cybersecurity and ethical hacking</code></li>
+      <li><code>Networking</code></li>
+      <li><code>Linux and open-source tools</code></li>
       <li><code>Red/blue team strategy</code></li>
     </ul>
   </div>
 
   <!-- Card -->
-  <div style="background: linear-gradient(145deg, #1a1a1a, #111); color: #e5e7eb; padding: 1.75rem; border-radius: 14px; border: 1px solid #2e2e2e; box-shadow: 0 10px 20px rgba(0,0,0,0.35);">
-    <h3 style="margin: 0 0 0.75rem; font-size: 1.35rem; border-bottom: 2px solid #facc15; padding-bottom: 0.4rem;">Goals</h3>
+  <div class="card-dark">
+    <h3>Goals</h3>
     <ul style="list-style: none; padding-left: 0; margin: 0;">
-      <li style="margin-bottom: 0.5rem;"><code>Earn more industry-recognized certifications</code></li>
-      <li style="margin-bottom: 0.5rem;"><code>Compete in more CTF competitions</code></li>
+      <li><code>Earn more industry-recognized certifications</code></li>
+      <li><code>Compete in more CTF competitions</code></li>
       <li><code>Start a career in cybersecurity or network defense</code></li>
     </ul>
   </div>
