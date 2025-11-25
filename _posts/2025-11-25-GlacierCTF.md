@@ -5,7 +5,6 @@ categories: [CTF]
 tags: [Reverse Engineering]
 image:
   path: assets/CTF.png
-  show_in_post: false
 ---
 
 ---
