@@ -4,7 +4,7 @@ date: 2025-11-25 14:00:00 +0800
 categories: [CTF]
 tags: [Reverse Engineering]
 image:
-  path: assets\CTF.png
+  path: assets/CTF.png
   show_in_post: false
 ---
 
