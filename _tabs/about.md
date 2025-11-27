@@ -48,14 +48,13 @@ order: 4
   <!-- Text -->
   <div style="flex: 1 1 300px; min-width: 250px; display: flex; flex-direction: column; justify-content: center;">
     <div style="height: 100%;">
-      <p><em>In the chronicles of the Hunt, a name returns like an echo through iron and smoke.</em><br>
-      I am <strong>Oceanwarranty</strong>, age 22. A third-year <strong>student of computation</strong> by title, but my nights are spent pursuing heresies in code, breaking wards that were never mine to begin with. My crucible is the terminal, my scripture: manuals and write-ups, my blade: exploits cast into flawed machines.</p>
+      <p>I’m <strong>Oceanwarranty</strong>, 22, a third-year Computer Science student. I’m curious about systems, networks, and all things that run behind the screen. Most of my time goes into exploring code, learning how software and hardware interact, and challenging myself with CTFs and security exercises.</p>
 
-      <p>I do not claim genius — only persistence. I stalk disassembly until its secrets speak, hurl payloads into brittle walls, and claim their collapse as proof no system is sacred. Each captured flag is a mark burned into the ledger of the Hunt.</p>
+      <p>This blog is my playground for documenting experiments, projects, and insights about cybersecurity, networking, and Unix-based systems. I also keep notes from things I’ve learned over the years that might help me—or anyone else—understand complex topics in IT.</p>
 
-      <p>Yet I falter. My familiars (VMs) fall apart. I forget invocations in <code>gdb</code>. I waste hours on a single misplaced rune. But each failure is another trial by fire, each sleepless night another rite.</p>
+      <p>Everything here is work in progress. Some tutorials might be rough, some ideas unfinished, but the goal is simple: organize knowledge, share what I can, and keep improving.</p>
 
-      <p><em>The Hunt does not end.</em></p>
+      <p>Have fun reading!</p>
     </div>
   </div>
 
@@ -66,50 +65,53 @@ order: 4
 
 </div>
 
+
 <!-- Responsive grid layout -->
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; align-items: stretch; margin-top: 1rem;">
 
   <!-- Card -->
-  <div class="card-dark">
-    <h3>Background</h3>
+  <div style="background: #1a1a1a; color: #e0e0e0; padding: 1.5rem; border-radius: 10px; border: 1px solid #333; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: 'Courier New', monospace;">
+    <h3 style="border-bottom: 1px solid #444; padding-bottom: 0.4rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Background</h3>
     <ul style="list-style: none; padding-left: 0; margin: 0;">
-      <li><code>Computer Science undergraduate (Year 3)</code></li>
-      <li><code>Age: 22</code></li>
-      <li><code>Location: No Where</code></li>
+      <li>Computer Science undergraduate (Year 3)</li>
+      <li>Age: 22</li>
+      <li>Location: Nowhere</li>
     </ul>
   </div>
 
   <!-- Card -->
-  <div class="card-dark">
-    <h3>Certifications</h3>
+  <div style="background: #1a1a1a; color: #e0e0e0; padding: 1.5rem; border-radius: 10px; border: 1px solid #333; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: 'Courier New', monospace;">
+    <h3 style="border-bottom: 1px solid #444; padding-bottom: 0.4rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Certifications</h3>
     <ul style="list-style: none; padding-left: 0; margin: 0;">
-      <li><code>CCNA: Enterprise Networking, Security & Automation</code></li>
-      <li><code>CCNA: Switching, Routing & Wireless Essentials</code></li>
-      <li><code>CCNA: Introduction to Networks</code></li>
+      <li>CCNA: Enterprise Networking, Security & Automation</li>
+      <li>CCNA: Switching, Routing & Wireless Essentials</li>
+      <li>CCNA: Introduction to Networks</li>
     </ul>
   </div>
 
   <!-- Card -->
-  <div class="card-dark">
-    <h3>Interests</h3>
+  <div style="background: #1a1a1a; color: #e0e0e0; padding: 1.5rem; border-radius: 10px; border: 1px solid #333; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: 'Courier New', monospace;">
+    <h3 style="border-bottom: 1px solid #444; padding-bottom: 0.4rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Interests</h3>
     <ul style="list-style: none; padding-left: 0; margin: 0;">
-      <li><code>Cybersecurity and ethical hacking</code></li>
-      <li><code>Networking</code></li>
-      <li><code>Linux and open-source tools</code></li>
-      <li><code>Red/blue team strategy</code></li>
+      <li>Cybersecurity and ethical hacking</li>
+      <li>Networking</li>
+      <li>Linux and open-source tools</li>
+      <li>Red/blue team strategy</li>
     </ul>
   </div>
 
   <!-- Card -->
-  <div class="card-dark">
-    <h3>Goals</h3>
+  <div style="background: #1a1a1a; color: #e0e0e0; padding: 1.5rem; border-radius: 10px; border: 1px solid #333; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: 'Courier New', monospace;">
+    <h3 style="border-bottom: 1px solid #444; padding-bottom: 0.4rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Goals</h3>
     <ul style="list-style: none; padding-left: 0; margin: 0;">
-      <li><code>Earn more industry-recognized certifications</code></li>
-      <li><code>Compete in more CTF competitions</code></li>
-      <li><code>Start a career in cybersecurity or network defense</code></li>
+      <li>Earn more industry-recognized certifications</li>
+      <li>Compete in more CTF competitions</li>
+      <li>Start a career in cybersecurity or network defense</li>
     </ul>
   </div>
 
 </div>
+
+
 
 
