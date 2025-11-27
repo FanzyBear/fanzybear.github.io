@@ -60,8 +60,8 @@ order: 4
   </div>
 
   <!-- Image -->
-  <div style="flex: 0 0 250px; display: flex; align-items: center;">
-    <img src="{{ '/assets/img/avatar/Death.jpg' | relative_url }}" alt="oceanwarranty sigil" style="width: 250px; border: 2px solid #f5f5f5; border-radius: 5%; object-fit: cover; height: 100%;">
+  <div style="flex: 0 0 150px; display: flex; align-items: center;">
+    <img src="{{ 'assets/img/avatar/stoot dance.png' | relative_url }}" alt="oceanwarranty sigil" style="width: 250px; object-fit: cover; height: 100%;">
   </div>
 
 </div>
