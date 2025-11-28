@@ -160,14 +160,6 @@ Alright, buckle up. I learned NES ROM reversing while doing this challenge (righ
   Analysis
 </div>
 
-This is the disassembly without BRK instructions (someone else cleaned it):
-
-[awesome_disassembly_nobrk.txt](assets/GlacierCTF/Rev - Awesomness/awesomeness/awesome_disassembly_nobrk.txt)
-
-This is the full iNES extension in Ghidra:
-
-[awesome.nes.txt.gz](assets/GlacierCTF/Rev - Awesomness/awesomeness/awesome.nes.txt)
-
 When we run the NES file in an emulator (FCEUX), we see the game asking for a 39-character flag and to press **Start** if the flag is correct. After analyzing the disassembly, we found:
 
 ```nasm
