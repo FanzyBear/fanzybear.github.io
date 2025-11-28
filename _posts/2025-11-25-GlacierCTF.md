@@ -1,17 +1,17 @@
 ---
-title: "GlacierCTF Rev Writeup"
+title: "GlacierCTF Writeup"
 date: 2025-11-25 14:00:00 +0800
 categories: [CTF]
 tags: [Reverse Engineering]
 image:
-  path: assets/CTF.png
+  path: assets/GlacierCTF.png
 ---
 
 ---
-## **Wisdom**
+## **Rev - Wisdom**
 
 <div style="text-align: center;">
-  <img src="/assets/GlacierCTF/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/GlacierCTF/Rev - Wisdom/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 
 <div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
@@ -34,7 +34,7 @@ After tossing the binary into Ghidra, things start to make sense.
 The main function reads exactly 46 bytes (`0x2e`) and passes them to a verification function:
 
 <div style="text-align: center;">
-  <img src="/assets/GlacierCTF/image (1).png" alt="Main Function" width="450" style="border-radius:16px;">
+  <img src="assets/GlacierCTF/Rev - Wisdom/image (1).png" alt="Main Function" width="450" style="border-radius:16px;">
 </div>
 
 <div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
@@ -45,7 +45,7 @@ All the core logic happens inside `check_flag()`.
 It transforms each character using a KEY, the index, and a MAGIC constant:
 
 <div style="text-align: center;">
-  <img src="/assets/GlacierCTF/image (2).png" alt="Check Flag Function" width="450" style="border-radius:16px;">
+  <img src="assets/GlacierCTF/Rev - Wisdom/image (2).png" alt="Check Flag Function" width="450" style="border-radius:16px;">
 </div>
 
 The transformation is:
@@ -81,7 +81,7 @@ af 0f 09 18 4c 47 33 44 64 0e bc 75 bd a5 d6 ee a0 c9 22 3a b9 cf 3c d6 eb e7 fd
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/GlacierCTF/image (3).png" alt="Magic Value" width="300" style="border-radius:16px;">
+  <img src="assets/GlacierCTF/Rev - Wisdom/image (3).png" alt="Magic Value" width="300" style="border-radius:16px;">
 </div>
 
 
@@ -147,4 +147,305 @@ Running the solution script reveals the flag:
 ```
 Flag: gctf{Ke3P_g0iNg_Y0u_goT_tH1s_00055ba509ea6138}
 ```
+---
+## **Rev - Awesomenes**
+
+<div style="text-align: center;">
+  <img src="assets/GlacierCTF/Rev - Awesomness/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
+</div>
+
+Alright, buckle up. I learned NES ROM reversing while doing this challenge (right after reading some writeups). So, the thing about reversing NES is you need to know the mapper. I used [Romhacking.net – Utilities – NES Mapper Reader / Rom Fixer / Rom Splitter](https://www.romhacking.net/utilities/683/) to check which mapper it uses (use at your own risk). Once I knew it didn’t have a mapper, I installed a `Ghidra NES extension (iNES Loader)` and used [this repository](https://github.com/kylewlacy/GhidraNes).  
+
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Analysis
+</div>
+
+This is the disassembly without BRK instructions (someone else cleaned it):
+
+[awesome_disassembly_nobrk.txt](assets/GlacierCTF/Rev - Awesomness/awesomeness/awesome_disassembly_nobrk.txt)
+
+This is the full iNES extension in Ghidra:
+
+[awesome.nes.txt.gz](assets/GlacierCTF/Rev - Awesomness/awesomeness/awesome.nes.txt)
+
+When we run the NES file in an emulator (FCEUX), we see the game asking for a 39-character flag and to press **Start** if the flag is correct. After analyzing the disassembly, we found:
+
+```nasm
+; Input reading at address 0x8163
+PRG0:PRG0::8163 a901            LDA         #0x1                    
+PRG0:PRG0::8165 8d1640          STA         APU_IO:JOY1             
+
+; Main validation function at 0x8322
+PRG0:PRG0::8322 a200            LDX         #0x0                    
+PRG0:PRG0::8324 a9aa            LDA         #0xaa                    
+PRG0:PRG0::8326 8538            STA         RAM:DAT_0038    
+```
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Validation Logic
+</div>
+
+For each of the 39-char position, the game takes your input character (converted to a number 0x00-0x4B) and performs an operation (ADD, SUB, or XOR) with a constant). Then uses the result to select one of the 12 routines (0-11) and applies the routing to test data and compares the output against expected output.
+
+```nasm
+; This code determines which operation to use
+PRG0:PRG0::8334 d007            BNE         LAB_PRG0__833d          
+PRG0:PRG0::8336 18              CLC                                 
+PRG0:PRG0::8337 7d6b87          ADC         DAT_PRG0__876b,X        ; ADD operation
+PRG0:PRG0::833a 4c5283          JMP         LAB_PRG0__8352          
+
+LAB_PRG0__833d:               ;XREF[1,0]:   PRG0::8334
+PRG0:PRG0::833d c001            CPY         #0x1                    
+PRG0:PRG0::833f d007            BNE         LAB_PRG0__8348          
+PRG0:PRG0::8341 38              SEC                                 
+PRG0:PRG0::8342 fd6b87          SBC         DAT_PRG0__876b,X        ; SUB operation
+PRG0:PRG0::8345 4c5283          JMP         LAB_PRG0__8352          
+
+LAB_PRG0__8348:               ;XREF[1,0]:   PRG0::833f
+PRG0:PRG0::8348 c002            CPY         #0x2                    
+PRG0:PRG0::834a d006            BNE         LAB_PRG0__8352          
+PRG0:PRG0::834c 5d6b87          EOR         DAT_PRG0__876b,X        ; XOR operation
+```
+
+This mean if `Y==0` use ADD operation, if `Y==1` use SUB operation and if `Y==2` use XOR operation
+
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Important Data Tables
+</div>
+
+We also located several important data tables in the ROM:
+
+```nasm
+; Operation types array (39 bytes)
+DAT_PRG0__8792: 
+PRG0:PRG0::8792 01 02 01 00 00 01 02 00 00 00 01 02 02 00 00 00 01 02 01 01 01 00 00 01 00 02 00 00 01 00 02 01 01 02 00 00 00 02 02
+
+; Operation constants array (39 bytes)  
+DAT_PRG0__876b:
+PRG0:PRG0::876b 39 16 1d cb c7 2a 20 c6 ed fa 35 12 1f e5 c3 de 33 34 0e 2d 15 cc ff 34 1f 3a c4 e5 fe cd 0d 34 31 3b df c5 df 2b 30
+
+; Expected results arrays (39 bytes each)
+DAT_PRG0__882e:
+PRG0:PRG0::882e 88 0d 2f 00 72 c5 97 00 b2 55 5b 8a fb 00 71 00 11 2b d9 1c 45 1c 84 00 83 00 81 00 75 2f d8 e6 72 6a 00 ed 0d 7b a8
+
+DAT_PRG0__8855:
+PRG0:PRG0::8855 68 e5 7c ec b2 40 94 50 10 e8 3f 8a 50 6b 3c e5 71 d7 51 54 a1 0c fb ff 81 8f 5e 09 61 b5 f9 a6 d1 74 9b c9 7e 1d 80
+```
+
+From the decoded graphics, we find which characters are allowed where each char is mapped to a number (0-62):
+
+```nasm
+Allowed characters: 
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  
+1234567890_
+
+a-z: 0-25
+A-Z: 26-51
+0-9: 52-61
+_: 62
+```
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Script (someone else’s since its cleaner)
+</div>
+
+```python
+#!/usr/bin/python3
+import binascii as B
+
+X = lambda s: list(B.unhexlify(s))
+
+CONFIG = {
+    "D": X("39161dcbc72a20c6edfa35121fe5c3de33340e2d15ccff341f3ac4e5fecd0d34313bdfc5df2b30"),
+    "O": X("010201000001020000000102020000000102010101000001000200000100020101020000000202"),
+    "M1": X("f3869755b9c597f9a849b736e38e381d8895d928a21c0901836940b67197b0e64a35f6ed06f651"),
+    "M2": X("13f2e4417170bc490adc7fb748f903f8386b5560fe6ff60081e61dbf5d5af3a6e91f91db773a02"),
+    "E": X("7b839755b9c597f9a849b736e38e381d8895d928a21c0901836940b67197b0e64a35f6ed06f651"),
+    "T1": X("880d2f0072c59700b2555b8afb007100112bd91c451c840083008100752fd8e6726a00ed0d7ba8"),
+    "T2": X("68e57cecb240945010e83f8a506b3ce571d75154a10cfbff818f5e0961b5f9a6d1749bc97e1d80")
+}
+
+SPECIAL = {11, 24, 38}
+
+ALPHA = {
+ 'a':0,'A':1,'b':2,'B':3,'c':4,'C':5,'d':6,'D':7,'e':8,'E':9,'f':10,'F':11,
+ 'g':12,'G':13,'h':14,'H':15,'i':16,'I':17,'j':18,'J':19,'k':20,'K':21,'l':22,'L':23,
+ 'm':24,'M':25,'n':26,'N':27,'o':28,'O':29,'p':30,'P':31,'q':32,'Q':33,'r':34,'R':35,
+ 's':36,'S':37,'t':38,'T':39,'u':40,'U':41,'v':42,'V':43,'w':44,'W':45,'x':46,'X':47,
+ 'y':48,'Y':49,'z':50,'Z':51,'1':52,'2':53,'3':54,'4':55,'5':56,'6':57,'7':58,'8':59,
+ '9':60,'0':61,'_':62
+}
+REV = {v:k for k,v in ALPHA.items()}
+
+U = lambda v: v & 0xFF
+
+class Decoder:
+    def __init__(self):
+        self.buf = [0]*39
+
+    def op(self, v, o, d):
+        if o == 0: q = v+d; return U(q), int(q>255)
+        if o == 1: q = v-d; return U(q), int(v>=d)
+        if o == 2: return U(v^d), 1
+        return U(v), 1
+
+    def mix(self, t, a, i, v, c):
+        e = CONFIG["E"][i]
+        if t == 0: return U(a), c
+        if t == 1: q = a+e+c; return U(q), int(q>255)
+        if t == 2: return U(a & e), c
+        if t == 3:
+            q = a + (e^255) + c
+            return U(q), int(q<=255)
+        if t == 4: return U(a^e), c
+        if t == 5:
+            a |= e; q = a+e
+            return U(q), int(q>255)
+        if t == 6:
+            q = a+v; return U(q), int(q>255)
+        if t == 7: return U(a^v), c
+        if t == 8: return U(a<<1), int(a&128>0)
+        if t == 9: return (a>>1)&255, (a&1)
+        if t == 10:
+            r = ((a<<1)&255) | (c&1)
+            return U(r), int(a&128>0)
+        if t == 11:
+            r = (a>>1) | ((c&1)<<7)
+            return U(r), int(a&1>0)
+        return 0, 0
+
+    def valid(self, upto):
+        for i in range(upto+1):
+            if i in SPECIAL: continue
+            v = self.buf[i]
+            t,c = self.op(v, CONFIG["O"][i], CONFIG["D"][i])
+            r1,_ = self.mix(t, CONFIG["M1"][i], i, v, c)
+            r2,_ = self.mix(t, CONFIG["M2"][i], i, v, 1)
+            if r1 != CONFIG["T1"][i] or r2 != CONFIG["T2"][i]:
+                return False
+        return True
+
+    def solve(self):
+        for i in range(len(self.buf)):
+            if i in SPECIAL: continue
+            for z in ALPHA.values():
+                self.buf[i] = z
+                if self.valid(i): break
+        return "".join(REV.get(x,"?") for x in self.buf)
+
+print(Decoder().solve())
+```
+
+Flag
+
+After some byte guessing for positions without valid solutions:
+```
+gctf{0op5_wr0ng_jmp_t0_i1l3g4l_0pc0d35_s0rry}
+```
+---
+## **Misc - Git Reset Hard**
+
+
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Initial Analysis
+</div>
+
+Kevin joined the company.
+Kevin shit on the carpet.
+Kevin ran `git reset --hard`
+Kevin force‑pushed
+Kevin quit
+We receive the **bare repository** (only the `.git` directory contents).
+Our job: **recover whatever Kevin tried to erase**, and capture the flag.
+
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Inspecting the repo
+</div>
+
+The provided repository is bare, so Git Bash shows:
+
+```
+(BARE:main)
+fatal: this operation must be run in a work tree
+```
+
+Bare repos don’t have a working directory — only `.git/` metadata.
+
+So we immediately try to list unreachable commits:
+
+```
+git fsck --full
+```
+
+Output:
+
+```
+dangling commit 6a81c76ebba614823433d7caf0ea7e523a998fcb
+```
+
+This means: **there existed a commit, but all references pointing to it were deleted** (thanks Kevin).
+
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Dangling Commit
+</div>
+
+We dump the commit contents:
+
+```
+git show 6a81c76ebba614823433d7caf0ea7e523a998fcb
+```
+
+Inside the diff we find a single file:
+
+```
+carpet/shit
+```
+
+Content:
+
+```bash
+#!/bin/bash
+
+openssl enc -d -aes-256-cbc -pbkdf2 -pass pass:tJnAQZQF2bKx4 \
+  -in <(base64 -d <(echo "U2FsdGVkX18liMZqk4AiqSRX5HZpfrnZAmrfRaS1UztVewZqjgX1wTHCNNj2H5crA/0VUhBXMk9bo/N/lKfFPQ==")) \
+  -A -out -
+```
+
+This is clearly decrypting something — almost certainly the flag.
+
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Extracting Encrypted Data
+</div>
+
+We isolate the encrypted blob:
+
+```
+U2FsdGVkX18liMZqk4AiqSRX5HZpfrnZAmrfRaS1UztVewZqjgX1wTHCNNj2H5crA/0VUhBXMk9bo/N/lKfFPQ==
+```
+
+And the password is literally hardcoded:
+
+```
+tJnAQZQF2bKx4
+```
+
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Decrypting the Flag
+</div>
+
+Process substitution (`<(...)`) sometimes breaks in Git Bash on Windows,
+
+so we convert it into a safe one‑liner:
+
+```
+echo "U2FsdGVkX18liMZqk4AiqSRX5HZpfrnZAmrfRaS1UztVewZqjgX1wTHCNNj2H5crA/0VUhBXMk9bo/N/lKfFPQ==" | base64 -d | openssl enc -d -aes-256-cbc -pbkdf2 -pass pass:tJnAQZQF2bKx4
+```
+
+This directly prints the decrypted output.
+
+<div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
+  Flag
+</div>
+
+gctf{0113_wh0_g1t_r3s3t3d_th3_c4t_4789}
+
 ---

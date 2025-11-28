@@ -1,0 +1,84 @@
+#!/usr/bin/python3
+import binascii as B
+
+X = lambda s: list(B.unhexlify(s))
+
+CONFIG = {
+    "D": X("39161dcbc72a20c6edfa35121fe5c3de33340e2d15ccff341f3ac4e5fecd0d34313bdfc5df2b30"),
+    "O": X("010201000001020000000102020000000102010101000001000200000100020101020000000202"),
+    "M1": X("f3869755b9c597f9a849b736e38e381d8895d928a21c0901836940b67197b0e64a35f6ed06f651"),
+    "M2": X("13f2e4417170bc490adc7fb748f903f8386b5560fe6ff60081e61dbf5d5af3a6e91f91db773a02"),
+    "E": X("7b839755b9c597f9a849b736e38e381d8895d928a21c0901836940b67197b0e64a35f6ed06f651"),
+    "T1": X("880d2f0072c59700b2555b8afb007100112bd91c451c840083008100752fd8e6726a00ed0d7ba8"),
+    "T2": X("68e57cecb240945010e83f8a506b3ce571d75154a10cfbff818f5e0961b5f9a6d1749bc97e1d80")
+}
+
+SPECIAL = {11, 24, 38}
+
+ALPHA = {
+ 'a':0,'A':1,'b':2,'B':3,'c':4,'C':5,'d':6,'D':7,'e':8,'E':9,'f':10,'F':11,
+ 'g':12,'G':13,'h':14,'H':15,'i':16,'I':17,'j':18,'J':19,'k':20,'K':21,'l':22,'L':23,
+ 'm':24,'M':25,'n':26,'N':27,'o':28,'O':29,'p':30,'P':31,'q':32,'Q':33,'r':34,'R':35,
+ 's':36,'S':37,'t':38,'T':39,'u':40,'U':41,'v':42,'V':43,'w':44,'W':45,'x':46,'X':47,
+ 'y':48,'Y':49,'z':50,'Z':51,'1':52,'2':53,'3':54,'4':55,'5':56,'6':57,'7':58,'8':59,
+ '9':60,'0':61,'_':62
+}
+REV = {v:k for k,v in ALPHA.items()}
+
+U = lambda v: v & 0xFF
+
+class Decoder:
+    def __init__(self):
+        self.buf = [0]*39
+
+    def op(self, v, o, d):
+        if o == 0: q = v+d; return U(q), int(q>255)
+        if o == 1: q = v-d; return U(q), int(v>=d)
+        if o == 2: return U(v^d), 1
+        return U(v), 1
+
+    def mix(self, t, a, i, v, c):
+        e = CONFIG["E"][i]
+        if t == 0: return U(a), c
+        if t == 1: q = a+e+c; return U(q), int(q>255)
+        if t == 2: return U(a & e), c
+        if t == 3:
+            q = a + (e^255) + c
+            return U(q), int(q<=255)
+        if t == 4: return U(a^e), c
+        if t == 5:
+            a |= e; q = a+e
+            return U(q), int(q>255)
+        if t == 6:
+            q = a+v; return U(q), int(q>255)
+        if t == 7: return U(a^v), c
+        if t == 8: return U(a<<1), int(a&128>0)
+        if t == 9: return (a>>1)&255, (a&1)
+        if t == 10:
+            r = ((a<<1)&255) | (c&1)
+            return U(r), int(a&128>0)
+        if t == 11:
+            r = (a>>1) | ((c&1)<<7)
+            return U(r), int(a&1>0)
+        return 0, 0
+
+    def valid(self, upto):
+        for i in range(upto+1):
+            if i in SPECIAL: continue
+            v = self.buf[i]
+            t,c = self.op(v, CONFIG["O"][i], CONFIG["D"][i])
+            r1,_ = self.mix(t, CONFIG["M1"][i], i, v, c)
+            r2,_ = self.mix(t, CONFIG["M2"][i], i, v, 1)
+            if r1 != CONFIG["T1"][i] or r2 != CONFIG["T2"][i]:
+                return False
+        return True
+
+    def solve(self):
+        for i in range(len(self.buf)):
+            if i in SPECIAL: continue
+            for z in ALPHA.values():
+                self.buf[i] = z
+                if self.valid(i): break
+        return "".join(REV.get(x,"?") for x in self.buf)
+
+print(Decoder().solve())
