@@ -1,8 +1,8 @@
 ---
-title: "DSCP Manling Detection Algorithm"
+title: "DSCP Mangling Detection Algorithm"
 date: 2025-12-04 00:10:00 +0800
-categories: [Home Lab]
+categories: [Research & Development]
 tags: [STUN, Encryption]
 image:
-  path: assets/lab.png
+  path: assets/Preview/DSCP Mangling.png
 ---

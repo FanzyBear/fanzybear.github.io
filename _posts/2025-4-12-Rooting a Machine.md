@@ -4,7 +4,7 @@ date: 2025-12-04 00:09:00 +0800
 categories: [Hack Lab]
 tags: [Pwn, privilege escalation, CVE]
 image:
-  path: assets/evilcups.png
+  path: assets/Preview/evilcup.png
 ---
 
 # CVE-Evil Cups

@@ -4,7 +4,7 @@ date: 2025-11-25 14:00:00 +0800
 categories: [CTF]
 tags: [Reverse Engineering, Web, Misc]
 image:
-  path: assets/GlacierCTF.png
+  path: assets/Preview/GlacierCTF.png
 ---
 
 ---
