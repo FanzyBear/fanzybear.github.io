@@ -2,7 +2,7 @@
 title: "GlacierCTF Writeup"
 date: 2025-11-25 14:00:00 +0800
 categories: [CTF]
-tags: [Reverse Engineering, Web, Misc]
+tags: [reverse Engineering, web, misc]
 image:
   path: assets/Preview/GlacierCTF.png
 ---
