@@ -60,7 +60,7 @@ order: 4
 
   <!-- Image -->
   <div style="flex: 0 0 150px; display: flex; align-items: center;">
-    <img src="{{ 'assets/img/avatar/stoot dance.png' | relative_url }}" alt="oceanwarranty sigil" style="width: 250px; object-fit: cover; height: 100%;">
+    <img src="{{ 'assets/img/avatar/lain.gif' | relative_url }}" alt="oceanwarranty sigil" style="width: 250px; object-fit: cover; height: 100%;">
   </div>
 
 </div>
@@ -73,7 +73,7 @@ order: 4
   <div style="background: #1a1a1a; color: #e0e0e0; padding: 1.5rem; border-radius: 10px; border: 1px solid #333; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: 'Courier New', monospace;">
     <h3 style="border-bottom: 1px solid #444; padding-bottom: 0.4rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Background</h3>
     <ul style="list-style: none; padding-left: 0; margin: 0;">
-      <li>Computer Science undergraduate (Year 3)</li>
+      <li>Computer Science undergraduate (Year 4)</li>
       <li>Age: 22</li>
       <li>Location: Nowhere</li>
     </ul>
