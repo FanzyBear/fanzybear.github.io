@@ -60,7 +60,7 @@ order: 4
 
   <!-- Image -->
   <div style="flex: 0 0 150px; display: flex; align-items: center;">
-    <img src="{{ 'assets/img/avatar/lain.gif' | relative_url }}" alt="oceanwarranty sigil" style="width: 250px; object-fit: cover; height: 100%;">
+    <img src="{{ 'assets/img/avatar/pompom.png' | relative_url }}" alt="oceanwarranty sigil" style="width: 350px; object-fit: cover; height: 100%;">
   </div>
 
 </div>
