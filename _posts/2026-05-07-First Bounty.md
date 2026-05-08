@@ -105,9 +105,9 @@ print(encrypt(""))
 
 I grabbed the hex output, pasted it into my intercepted login request in Burp, and got straight in. Changed my password back to normal immediately.
 
-### 4. Excel Formula Injection via URL headers
+### 4. Excel Formula Injection via request headers
 
-Last finding of the run. The app had a feature to export table data to an Excel file. I noticed the column headers were being passed as a JSON array right in the URL:
+Last finding of the run. The app had a feature to export table data to an Excel file. I noticed the column headers were being passed as a JSON array right in the request:
 
 ```json
 [{"text":"Product", "index":"redacted"}, {"text":"Price", "index":"redacted"}]
@@ -121,4 +121,4 @@ I wanted to see if they were sanitizing this before dropping it into the `.xlsx`
 
 When I downloaded and opened the spreadsheet, the raw payload was gone. Instead, it rendered as a functional "Click" hyperlink that redirected straight to my external domain. Since the file is generated and downloaded from the company's legitimate domain, it would be incredibly easy to social engineer an employee into clicking it.
 
-There are probably more bugs hiding in this app, but I’m pretty happy with this haul.
+There are probably more bugs hiding in this app, but I’m pretty happy with this haul. p/s found another hidden endpoint that have zip file.
