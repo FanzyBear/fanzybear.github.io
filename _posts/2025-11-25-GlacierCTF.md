@@ -1,15 +1,15 @@
 ---
 title: "GlacierCTF Writeup"
 date: 2025-11-25 14:00:00 +0800
-categories: [CTF]
+categories: [ctf, glacierctf]
 tags: [reverse-engineering, web, misc]
 image:
-  path: assets/Preview/GlacierCTF.png
+  path: assets/preview/glacierctf.png
 ---
 ## **Rev - Wisdom**
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Rev - Wisdom/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Rev - Wisdom/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 
 <div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
@@ -32,7 +32,7 @@ After tossing the binary into Ghidra, things start to make sense.
 The main function reads exactly 46 bytes (`0x2e`) and passes them to a verification function:
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Rev - Wisdom/image (1).png" alt="Main Function" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Rev - Wisdom/image (1).png" alt="Main Function" width="450" style="border-radius:16px;">
 </div>
 
 <div style="font-size:1.5em; font-weight:bold; margin-top:20px; margin-bottom:10px;">
@@ -43,7 +43,7 @@ All the core logic happens inside `check_flag()`.
 It transforms each character using a KEY, the index, and a MAGIC constant:
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Rev - Wisdom/image (2).png" alt="Check Flag Function" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Rev - Wisdom/image (2).png" alt="Check Flag Function" width="450" style="border-radius:16px;">
 </div>
 
 The transformation is:
@@ -79,7 +79,7 @@ af 0f 09 18 4c 47 33 44 64 0e bc 75 bd a5 d6 ee a0 c9 22 3a b9 cf 3c d6 eb e7 fd
 </div>
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Rev - Wisdom/image (3).png" alt="Magic Value" width="300" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Rev - Wisdom/image (3).png" alt="Magic Value" width="300" style="border-radius:16px;">
 </div>
 
 
@@ -149,7 +149,7 @@ Flag: gctf{Ke3P_g0iNg_Y0u_goT_tH1s_00055ba509ea6138}
 ## **Rev - Awesomenes**
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Rev - Awesomness/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Rev - Awesomness/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 
 Alright, buckle up. I learned NES ROM reversing while doing this challenge (right after reading some writeups). So, the thing about reversing NES is you need to know the mapper. I used [Romhacking.net – Utilities – NES Mapper Reader / Rom Fixer / Rom Splitter](https://www.romhacking.net/utilities/683/) to check which mapper it uses (use at your own risk). Once I knew it didn’t have a mapper, I installed a `Ghidra NES extension (iNES Loader)` and used [this repository](https://github.com/kylewlacy/GhidraNes).  
@@ -441,7 +441,7 @@ gctf{0113_wh0_g1t_r3s3t3d_th3_c4t_4789}
 ## **Misc - Findme V2**
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Misc - findme v2/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Misc - findme v2/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 
 Ok so we given a pdf. When we open it, it have invisble text at the end which say :
@@ -522,7 +522,7 @@ BF.zlib:   zlib compressed data
 so the AD46 file say its a png and lets add png extension on it.
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Misc - findme v2/AD46.png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Misc - findme v2/AD46.png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 
 boom, we got the flag which is in the png
@@ -531,13 +531,13 @@ boom, we got the flag which is in the png
 ## **Web - GlacierToDo**
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Web - GlacierToDo/image (4).png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Web - GlacierToDo/image (4).png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 
 The challenge is a PHP Todo application. On the surface it behaves exactly like a basic CRUD app where user can create an account, log in, add tasks. But when we checked deeper, whole things falls apart.
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Web - GlacierToDo/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Web - GlacierToDo/image.png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 
 From the source code, every user gets a personal file that contains their Todo list. The filename is literally the username without sanitizer. 
@@ -584,7 +584,7 @@ PHP will still execute PHP tags even inside `*<?php … ?>`* even if enclosed in
 </div>
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Web - GlacierToDo/image (1).png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Web - GlacierToDo/image (1).png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 
 1. Register with a traversal username
@@ -596,7 +596,7 @@ PHP will still execute PHP tags even inside `*<?php … ?>`* even if enclosed in
 This causes the backend to create that file and treat it as personal ToDo storage.
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Web - GlacierToDo/image (2).png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Web - GlacierToDo/image (2).png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 
 1. Payload
@@ -616,6 +616,6 @@ https://<instance>.glacier-todo.web.glacierctf.com/stoot.php?0=cat+/flag.txt
 the command runes on the server and the flag get printed straight out.
 
 <div style="text-align: center;">
-  <img src="assets/GlacierCTF/Web - GlacierToDo/image (3).png" alt="Challenge Description" width="450" style="border-radius:16px;">
+  <img src="assets/ctf/glacierctf/Web - GlacierToDo/image (3).png" alt="Challenge Description" width="450" style="border-radius:16px;">
 </div>
 

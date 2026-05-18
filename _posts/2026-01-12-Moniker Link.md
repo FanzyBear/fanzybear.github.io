@@ -1,10 +1,10 @@
 ---
 title: "CVE-2024-21413: Microsoft Outlook Moniker Link Vulnerability"
 date: 2026-01-12 14:00:00 +0800
-categories: [Hack Lab]
-tags: [thm, smb, credential-leakage, RCE, NTLM]
+categories: [hack-lab, thm]
+tags: [thm, smb, credential-leakage, rce, ntlm]
 image:
-  path: assets/Preview/moniker link.png
+  path: assets/preview/moniker-link.png
 ---
 
 ## **What is CVE-2024-21413?**
@@ -25,7 +25,7 @@ CVE-2024-21413 is a Microsoft Outlook vulnerability that allows attackers to byp
 Under normal circumstances, Outlook displays a security warning when an email attempts to access external resources or trigger external applications. This behavior is enforced by Protected View.
 
 <div style="text-align: center;">
-  <img src="assets/Moniker Link/image.png" alt="protected view" width="450" style="border-radius:16px;">
+  <img src="assets/hack-lab/thm/moniker-link/image.png" alt="protected view" width="450" style="border-radius:16px;">
 </div>
 
 Protected View opens emails containing potentially unsafe content, such as attachments and hyperlinks, in a read-only mode. This mechanism prevents automatic execution of risky actions, including macro execution and unauthorized network connections.
@@ -151,7 +151,7 @@ Before sending the email, we must prepare an SMB listener on the attacker machin
 The network interface used must be reachable by the victim. Alternatively, an Impacket SMB server could also be used for this purpose.
 
 <div style="text-align: center;">
-  <img src="assets/Moniker Link/image 1.png" alt="responder" width="450" style="border-radius:16px;">
+  <img src="assets/hack-lab/thm/moniker-link/image 1.png" alt="responder" width="450" style="border-radius:16px;">
 </div>
 
 Once Responder is running, it will wait for incoming SMB authentication requests.
@@ -175,13 +175,13 @@ The malicious email is now delivered to the victim.
 When the victim clicks the “Click me” hyperlink in Outlook, the crafted Moniker Link bypasses Protected View and forces Windows to access the attacker-controlled UNC path. This triggers an SMB authentication attempt using the victim’s NTLM credentials.
 
 <div style="text-align: center;">
-  <img src="assets/Moniker Link/image 2.png" alt="responder" width="450" style="border-radius:16px;">
+  <img src="assets/hack-lab/thm/moniker-link/image 2.png" alt="responder" width="450" style="border-radius:16px;">
 </div>
 
 Responder immediately captures the netNTLMv2 hash, as shown below:
 
 <div style="text-align: center;">
-  <img src="assets/Moniker Link/image 3.png" alt="responder" width="450" style="border-radius:16px;">
+  <img src="assets/hack-lab/thm/moniker-link/image 3.png" alt="responder" width="450" style="border-radius:16px;">
 </div>
 
 This confirms successful exploitation of CVE-2024-21413.

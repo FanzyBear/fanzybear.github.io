@@ -1,8 +1,8 @@
 ---
 title: "DSCP Mangling Detection Algorithm"
 date: 2025-08-20 00:10:00 +0800
-categories: [Research & Development]
-tags: [STUN, Encryption]
+categories: [research, networking]
+tags: [stun, encryption]
 image:
-  path: assets/Preview/DSCP Mangling.png
+  path: assets/preview/dscp-mangling.png
 ---

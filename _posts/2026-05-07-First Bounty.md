@@ -1,10 +1,10 @@
 ---
 title: "First Bounty"
 date: 2026-05-07 11:14:00 +0800
-categories: [Bug Bounty, Penetration Testing]
+categories: [bug-bounty, web]
 tags: [xss, sql-injection, access-control, authentication-bypass, password-cracking, weak-crypto, des-encryption, excel-injection, web-hacking, pii-leak]
 image:
-  path: assets/Preview/first-bounty.png
+  path: assets/preview/first-bounty.png
 ---
 
 ## Chaining XSS, Massive PII Leaks, Custom Crypto Bypass and excel injection via unsanitized spreadsheet export
